@@ -17,5 +17,5 @@
 #++
 
 module Dolt
-  VERSION = "0.33.9"
+  VERSION = "0.33.10"
 end

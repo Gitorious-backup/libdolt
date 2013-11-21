@@ -32,7 +32,7 @@ describe "raw template" do
 
   it "renders raw contents" do
     renderer = prepare_renderer
-    html = renderer.render(:raw, { :blob => Blob.new("Something something") })
+    html = renderer.render(:raw, { :blob => Blob.new("Something something\n") })
 
     assert_equal "Something something\n", html
   end

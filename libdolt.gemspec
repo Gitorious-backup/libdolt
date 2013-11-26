@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "libdolt"
 
-  s.add_dependency "rugged", "0.18.0.gh.de28323"
+  s.add_dependency "rugged", "~> 0.19.0"
   s.add_dependency "tzinfo", "~> 0.3"
   s.add_dependency "makeup", "~> 0.4.2"
   s.add_dependency "htmlentities", "~> 4.3"

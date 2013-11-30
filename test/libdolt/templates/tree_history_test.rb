@@ -18,6 +18,7 @@
 require "test_helper"
 require "libdolt/view"
 require "json"
+require "force_utf8"
 
 describe "tree_history template" do
   include Dolt::ViewTest
@@ -110,7 +111,7 @@ describe "tree_history template" do
 
   it "renders JSON" do
     data = { "tree" => @tree, "repository_slug" => @repo, "ref" => "master", "path" => "" }
-    json = @renderer.render(:tree_history, data)
+    json = @renderer.render(:tree_history, data).force_utf8
 
     assert_equal @tree_array, JSON.parse(json)
   end

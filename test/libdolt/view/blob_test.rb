@@ -75,11 +75,18 @@ describe Dolt::View::Blob do
   end
 
   describe "safe_blob_text" do
-    it "returns blob's text with all invalid characters (for string's encoding) replaced with �" do
-      repository = Dolt::Git::Repository.new(Dolt.fixture_repo_path)
-      blob = repository.blob('master', 'bad-utf.txt')
 
+    repository = Dolt::Git::Repository.new(Dolt.fixture_repo_path)
+    blob = repository.blob('master', 'bad-utf.txt')
+
+    it "returns blob's text with all invalid characters (for UTF-8) replaced with �" do
+      Encoding.default_external = 'UTF-8'
       assert_equal "żółć & �.", safe_blob_text(blob)
+    end
+
+    it "returns blob's text with all invalid characters (for US-ASCII) replaced with �" do
+      Encoding.default_external = 'US-ASCII'
+      assert_equal "�������� & �.", safe_blob_text(blob)
     end
   end
 end

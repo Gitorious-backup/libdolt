@@ -7,9 +7,10 @@ Gem::Specification.new do |s|
   s.version     = Dolt::VERSION
   s.authors     = ["Christian Johansen"]
   s.email       = ["christian@gitorious.org"]
-  s.homepage    = "http://gitorious.org/gitorious/libdolt"
+  s.homepage    = "https://gitorious.org/gitorious/libdolt"
   s.summary     = %q{Dolt API for serving git trees and syntax highlighted blobs}
   s.description = %q{Dolt API for serving git trees and syntax highlighted blobs}
+  s.license     = "AGPLv3+"
 
   s.rubyforge_project = "libdolt"
 

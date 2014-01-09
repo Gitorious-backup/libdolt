@@ -163,6 +163,27 @@ describe Dolt::Git::Repository do
         }]
       assert_equal expected, log
     end
+
+    it "escapes summary and message" do
+      log = @repository.tree_history("52d702", "")
+
+      expected = {
+          :type => :blob,
+          :oid =>  "e2bd58a7c13c12a39fe882b773e00b66438a9451",
+          :filemode => 33188,
+          :name => "README.org",
+          :history => [{
+              :oid => "52d7029425ff0556ff659e570f71393b6c28ac9c",
+              :author => { :name => "Foo O&apos;Bar",
+                :email => 'script src=&quot;foobar.js&quot;/' },
+              :summary => "I&apos;m an &lt;script&gt;unsafe&lt;/script&gt; summary",
+              :date => Time.parse("2014-01-09 13:16:03 +0200"),
+              :message => "        I&apos;m a &lt;script&gt;scary&lt;/script&gt; message"
+            }]
+        }
+
+      assert_equal expected, log[1]
+    end
   end
 
   describe "#readmes" do

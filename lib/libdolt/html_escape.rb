@@ -1,6 +1,6 @@
 # encoding: utf-8
 #--
-#   Copyright (C) 2012-2013 Gitorious AS
+#   Copyright (C) 2014 Gitorious AS
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU Affero General Public License as published by
@@ -15,16 +15,13 @@
 #   You should have received a copy of the GNU Affero General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #++
-require "libdolt/version"
-require "libdolt/disk_repo_resolver"
-require "libdolt/repository_lookup"
-require "libdolt/controller_actions"
-require "libdolt/html_escape"
-require "libdolt/view"
-require "force_utf8/encode"
+require "htmlentities"
 
 module Dolt
-  def self.template_dir
-    File.join(File.dirname(__FILE__), "..", "views")
+  module HTMLEscape
+    def self.entityfy(content)
+      @coder ||= HTMLEntities.new
+      @coder.encode(content)
+    end
   end
 end

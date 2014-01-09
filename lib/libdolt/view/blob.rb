@@ -24,11 +24,6 @@ module Dolt
         !content[0...(content.length-1)].index("\000").nil?
       end
 
-      def entityfy(content)
-        @coder ||= HTMLEntities.new
-        @coder.encode(content)
-      end
-
       def format_blob(path, content, repo = nil, ref = nil)
         return format_binary_blob(path, content, repo, ref) if binary?(content)
         format_text_blob(path, content, repo, ref)
@@ -48,7 +43,7 @@ The content you're attempting to browse appears to be binary.
       end
 
       def format_text_blob(path, content, repository = nil, ref = nil)
-        multiline(entityfy(content))
+        multiline(HTMLEscape.entityfy(content))
       end
 
       def format_whitespace(text)

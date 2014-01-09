@@ -45,7 +45,9 @@ module Dolt
         case key
         when :author
           pieces = value.match(/(.*)\s<(.*)>/)
-          value = { :name => pieces[1], :email => pieces[2] }
+          name = HTMLEscape.entityfy(pieces[1])
+          email = HTMLEscape.entityfy(pieces[2])
+          value = { :name => name, :email => email }
         when :date
           value = Time.parse(value)
         end
@@ -56,7 +58,8 @@ module Dolt
       def self.extract_commit_summary(lines)
         summary = lines.shift
         lines.shift if lines.first == ""
-        summary.sub(/^    /, "")
+        summary = summary.sub(/^    /, "")
+        HTMLEscape.entityfy(summary)
       end
 
       def self.extract_commit_message(lines)
@@ -66,7 +69,7 @@ module Dolt
           message << lines.shift
         end
 
-        message
+        HTMLEscape.entityfy(message)
       end
     end
   end

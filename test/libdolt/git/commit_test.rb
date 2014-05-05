@@ -50,9 +50,6 @@ Date:   Tue Sep 11 19:57:22 2012 +0200
 commit eabcd577e921d01aeaf777d2daac565f88ab174c
 Author: Christian Johansen <christian@gitorious.com>
 Date:   Tue Sep 11 15:25:50 2012 +0200
-
-    Moron was taken, going with Addlepate
-
       GIT
 
       @commits = Dolt::Git::Commit.parse_log(@log)

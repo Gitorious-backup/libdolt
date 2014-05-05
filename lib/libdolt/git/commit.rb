@@ -29,7 +29,7 @@ module Dolt
 
       def self.extract_commit(lines)
         commit = { :oid => lines.shift.split(" ")[1] }
-        while (line = lines.shift) != ""
+        while (line = lines.shift) && line != ""
           pieces = line.split(": ")
           extract_property(commit, pieces[0], pieces[1])
         end
@@ -56,7 +56,7 @@ module Dolt
       end
 
       def self.extract_commit_summary(lines)
-        return "" if commit_start?(lines.first)
+        return "" if commit_end?(lines.first)
         summary = lines.shift
         lines.shift if lines.first == ""
         summary = summary.sub(/^    /, "")
@@ -66,14 +66,15 @@ module Dolt
       def self.extract_commit_message(lines)
         message = ""
 
-        while !lines.first.nil? && !commit_start?(lines.first)
+        while !lines.first.nil? && !commit_end?(lines.first)
           message << lines.shift
         end
 
         HTMLEscape.entityfy(message)
       end
 
-      def self.commit_start?(line)
+      def self.commit_end?(line)
+        return true unless line
         line =~ /^commit [a-z0-9]{40}$/
       end
     end

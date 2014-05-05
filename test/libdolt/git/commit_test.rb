@@ -26,8 +26,6 @@ commit dc0846b6c98a3f6db1172629329b70ada80598bb
 Author: Christian Johansen <christian@gitorious.com>
 Date:   Thu Sep 20 15:55:52 2012 +0200
 
-    Add rough blame
-
 commit 222eef3679553c9da2897144e03a5844f6e77586
 Author: Christian Johansen <christian@gitorious.com>
 Date:   Wed Sep 19 12:27:54 2012 +0200

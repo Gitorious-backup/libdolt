@@ -56,6 +56,7 @@ module Dolt
       end
 
       def self.extract_commit_summary(lines)
+        return "" if commit_start?(lines.first)
         summary = lines.shift
         lines.shift if lines.first == ""
         summary = summary.sub(/^    /, "")
@@ -65,11 +66,15 @@ module Dolt
       def self.extract_commit_message(lines)
         message = ""
 
-        while !lines.first.nil? && lines.first !~ /^commit [a-z0-9]{40}$/
+        while !lines.first.nil? && !commit_start?(lines.first)
           message << lines.shift
         end
 
         HTMLEscape.entityfy(message)
+      end
+
+      def self.commit_start?(line)
+        line =~ /^commit [a-z0-9]{40}$/
       end
     end
   end

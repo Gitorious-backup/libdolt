@@ -19,7 +19,7 @@
 %>
 <div class="container gts-body">
   <%
-    @title = "#{path == '' ? './' : path} in #{ref}"
+    @title = "#{path == '' ? './' : path} in #{repository_slug} (#{ref})"
     levels = accumulate_path(partition_path(path, respond_to?(:maxdepth) ? maxdepth : nil))
     %>
   <div class="gts-ref-selector-ph"></div>

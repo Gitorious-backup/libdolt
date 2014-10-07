@@ -17,18 +17,16 @@
 #++
 require "open3"
 require "libdolt/git/process"
-require "shellwords"
 
 module Dolt
   module Git
-    def self.shell(command)
-      stdin, stdout, stderr, wait_thread = Open3.popen3(command)
+    def self.shell(*command_with_args)
+      stdin, stdout, stderr, wait_thread = Open3.popen3(*command_with_args)
       Dolt::Git::Process.new(stdin, stdout, stderr, wait_thread)
     end
 
     def self.git(git_dir, command)
-      args = Shellwords.join(command.split(" "))
-      shell("#{binary} --git-dir #{git_dir} #{args}")
+      shell('/bin/sh', '-c', "#{binary} --git-dir #{git_dir} #{command}")
     end
 
     def self.binary

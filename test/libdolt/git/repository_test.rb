@@ -81,13 +81,13 @@ describe Dolt::Git::Repository do
 
     it "separates tree-like and path" do
       cmd = "git --git-dir #{@repository.path} blame -l -t -p master -- README.org"
-      Dolt::Git.expects(:shell).with(cmd).returns(Dolt::FakeProcess.new(0))
+      Dolt::Git.expects(:shell).with('/bin/sh', '-c', cmd).returns(Dolt::FakeProcess.new(0))
       @repository.blame("master", "README.org")
     end
 
     it "does not allow injecting evil commands" do
-      cmd = "git --git-dir #{@repository.path} blame -l -t -p master -- README.org\\; rm -fr /tmp"
-      Dolt::Git.expects(:shell).with(cmd).returns(Dolt::FakeProcess.new(0))
+      cmd = "git --git-dir #{@repository.path} blame -l -t -p master -- README.org; rm -fr /tmp"
+      Dolt::Git.expects(:shell).with('/bin/sh', '-c', cmd).returns(Dolt::FakeProcess.new(0))
       @repository.blame("master", "README.org; rm -fr /tmp")
     end
   end

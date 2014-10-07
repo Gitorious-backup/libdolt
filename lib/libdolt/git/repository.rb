@@ -115,7 +115,7 @@ module Dolt
 
       private
       def entry_history(ref, entry, limit)
-        process = Dolt::Git.git(path, "log -n #{limit} #{ref} -- #{entry}")
+        process = Dolt::Git.git(path, %(log -n #{limit} #{ref} -- "#{entry}"))
         Dolt::Git::Commit.parse_log(process.stdout.read)
       end
 
